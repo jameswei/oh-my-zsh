@@ -164,7 +164,6 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-#  prompt_segment blue black '%~'
    prompt_segment white black '%~'
 }
 
@@ -172,7 +171,6 @@ prompt_dir() {
 prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
   if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-#    prompt_segment blue black "(`basename $virtualenv_path`)"
      prompt_segment white black "(`basename $virtualenv_path`)"
   fi
 }
