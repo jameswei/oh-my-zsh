@@ -1,0 +1,84 @@
+#compdef crt-admin
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((precommit\:'Manage precommit events' pcx\:'Manage pcx events' override-rules\:'Manage rules overrides' deployed\:'Mark product version as deployed' rolledback\:'Mark product version as rolled back'))" "--version[Show the version and exit.]:version:" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+precommit )
+#  generate_group_completions for precommit
+_arguments -S -C "*:: :->precommit_subcommand" ": :((create\:'Create precommit events' find\:'Find precommit events'))" 
+if [[ $state == precommit_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "--product[The applicable product name for precommit event]:product:_product" "--status[The status of precommit event.]:status:" "--vcs-type[The vcs type of precommit event]:vcs-type:" "--vcs-id[The vcs_id of precommit event]:vcs-id:" "--message[The message of precommit event]:message:" "--repo[The repo of precommit event]:repo:" "--branch[The branch of precommit event]:branch:" "--job-url[The job url of precommit event]:job-url:" "--transaction-id[The transaction_id of precommit event]:transaction-id:"
+;;
+find )
+_arguments -S "-p[The applicable product name to filter by]:p:_product" "--product[The applicable product name to filter by]:product:_product" "-a[The applicable event author to filter by]:a:" "--author[The applicable event author to filter by]:author:" "-s[The start datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[The start datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[The end datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[The end datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:end-time:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+pcx )
+#  generate_group_completions for pcx
+_arguments -S -C "*:: :->pcx_subcommand" ": :((create\:'Create pcx events' find\:'Find pcx events'))" 
+if [[ $state == pcx_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "--product[The applicable product name for pcx event]:product:_product" "--version[The product version of pcx event]:version:" "--status[The status of pcx event]:status:" "--branch[The branch of pcx event]:branch:" "--job-url[The job url of pcx event]:job-url:" "--vcs-id[The vcs_id of pcx event]:vcs-id:"
+;;
+find )
+_arguments -S "-p[The applicable product name to filter by]:p:_product" "--product[The applicable product name to filter by]:product:_product" "-a[The applicable event author to filter by]:a:" "--author[The applicable event author to filter by]:author:" "-s[The start datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[The start datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[The end datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[The end datetime to filter by, formatted as YYYY-MM-DD HH:MM:SS]:end-time:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+override-rules )
+#  generate_group_completions for override-rules
+_arguments -S -C "*:: :->override-rules_subcommand" ": :((create\:'Find rule overrides by product name' update\:'Find rule overrides by product name' find\:'Find rule overrides by product name' delete\:'Find rule overrides by product name'))" 
+if [[ $state == override-rules_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "-p[The applicable product name to filter by]:p:_product" "--product[The applicable product name to filter by]:product:_product" "-s[The datetime of the start of this override, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[The datetime of the start of this override, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[The datetime of the end of this override, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[The datetime of the end of this override, formatted as YYYY-MM-DD HH:MM:SS]:end-time:" "-j[The JIRA ticket for this override]:j:" "--jira-ticket[The JIRA ticket for this override]:jira-ticket:" "-m[The reason behind this override]:m:" "--message[The reason behind this override]:message:"
+;;
+update )
+_arguments -S "-i[The ID of the rule override record]:i:" "--id[The ID of the rule override record]:id:" "-p[The applicable product name to filter by]:p:_product" "--product[The applicable product name to filter by]:product:_product" "-s[The datetime of the start of this override, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[The datetime of the start of this override, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[The datetime of the end of this override, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[The datetime of the end of this override, formatted as YYYY-MM-DD HH:MM:SS]:end-time:" "-j[The JIRA ticket for this override]:j:" "--jira-ticket[The JIRA ticket for this override]:jira-ticket:" "-m[The reason behind this override]:m:" "--message[The reason behind this override]:message:"
+;;
+find )
+_arguments -S "-p[The applicable product name to filter by]:p:_product" "--product[The applicable product name to filter by]:product:_product"
+;;
+delete )
+_arguments -S "-i[The ID of the rule override record]:i:" "--id[The ID of the rule override record]:id:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+deployed )
+_arguments -S "-p[The name of the product to mark as deployed]:p:_product" "--product[The name of the product to mark as deployed]:product:_product" "-v[The version of the product to mark as deployed]:v:" "--version[The version of the product to mark as deployed]:version:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-t[The tag of the product to mark as deployed]:t:" "--tag[The tag of the product to mark as deployed]:tag:"
+;;
+rolledback )
+_arguments -S "-p[The name of the product to mark as rolled back]:p:_product" "--product[The name of the product to mark as rolled back]:product:_product" "--rollback-to-version[The version of the product to rollback to]:rollback-to-version:" "--previous-version[The version of the product to rollback from]:previous-version:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-t[The tag of the product to mark as rolled back]:t:" "--tag[The tag of the product to mark as rolled back]:tag:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _crt-admin crt-admin

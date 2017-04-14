@@ -1,0 +1,5 @@
+#compdef tv2-count
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "--fabric[Comma-separated Fabric names]:fabric:_fabrics" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:"
+compdef _tv2-count tv2-count

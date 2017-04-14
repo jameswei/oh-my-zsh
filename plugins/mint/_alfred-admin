@@ -1,0 +1,40 @@
+#compdef alfred-admin
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((override\:'List or delete artifact overrides' state\:'state' artifact\:'List intended artifacts '))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+override )
+#  generate_group_completions for override
+_arguments -S -C "*:: :->override_subcommand" ": :((list\:'List intended overrides ' delete\:'Delete intended overrides for canary only'))" 
+if [[ $state == override_subcommand ]]
+then
+
+case ${line[1]} in
+list )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-a[Application name to filter]:a:" "--application[Application name to filter]:application:" ": : _product" ": : _message 'product_tag = [PRODUCT_TAG]'"
+;;
+delete )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-a[Application name to filter]:a:" "--application[Application name to filter]:application:" "-H[Hostname to filter]:H:" "--hostname[Hostname to filter]:hostname:" ": : _product" ": : _message 'product_tag = [PRODUCT_TAG]'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+state )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--set[Deployment state to set]:set:" "--unset[Unset state]:unset:" ": : _message 'applications = [APPLICATIONS]...'"
+;;
+artifact )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-a[Application name to filter]:a:" "--application[Application name to filter]:application:" "-k[Kind of artifact to filter (partial name ok, such as "config" to view all configs)]:k:" "--kind[Kind of artifact to filter (partial name ok, such as "config" to view all configs)]:kind:" ": : _product" ": : _message 'product_tag = [PRODUCT_TAG]'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _alfred-admin alfred-admin

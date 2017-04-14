@@ -1,0 +1,5 @@
+#compdef unhealthy-canaries
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "-t[TEXT]:t:" "--product-tag[TEXT]:product-tag:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--all[Check all hosts.]:all:" ": : _product"
+compdef _unhealthy-canaries unhealthy-canaries

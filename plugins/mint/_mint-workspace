@@ -1,0 +1,95 @@
+#compdef mint-workspace
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((status\:'Displays the status of the current workspace.' product\:'Contains various sub-commands that operate on products within the workspace.' exec\:'Executes the specified command in each products root WC folder' wc-test\:'Initiates a workspace-level wc-test.' review\:'Posts an RB for each modified product within the current workspace.' retire\:'Deletes the current workspace' init\:'Creates a new workspace' update\:'Update all constituent products in the workspace' current\:'Print information about the current workspace.' switch\:'Switch to another workspace.' ls\:'List the names of all existing workspaces' clean\:'Cleans each product in the workspace.' commit\:'Launches a commit to the central repository for each modified product that is approved in RB, in reverse topological order' composite-build\:'Kick off a composite build' pip-install\:'Install dependency products into their dependers virtual environments using "pip install --editable"' build\:'Builds each product in the workspace in reverse topological order.'))" "--pdb[Drop into debugger before doing anything else.]:pdb:" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--test[Running for test purposes]:test:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+status )
+_arguments -S 
+;;
+product )
+#  generate_group_completions for product
+_arguments -S -C "*:: :->product_subcommand" ": :((rm\:'Remove products from the current workspace' add\:'Adds a product to the current workspace'))" 
+if [[ $state == product_subcommand ]]
+then
+
+case ${line[1]} in
+rm )
+_arguments -S ": : _message 'products = PRODUCTS...'"
+;;
+add )
+_arguments -S "--is-root[BOOLEAN]:is-root:" "--with-dependencies[(Optional) checkout the products dependencies as well]:with-dependencies:" "--with-dependers[(Optional) checkout the products dependers as well]:with-dependers:" "--transitive[(Optional) also checkout transitive dependencies/dependers]:transitive:" ": : _message 'products = PRODUCTS...'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+exec )
+_arguments -S ": : _message 'cmd = CMD'"
+;;
+wc-test )
+_arguments -S "--environment[Test environment: production (default) or staging?]:environment:"
+;;
+review )
+#  generate_group_completions for review
+_arguments -S -C "*:: :->review_subcommand" ": :((status\:'Displays the review-status of each product in the current workspace (unmodified, no RB created, not approved, approved, etc.)' dcommit\:'For each modified product that has an RB with a valid "Ship It!", amends the latest commit message (affects Git products only).'))" "--owners[Add all owners to reviewers list.]:owners:"
+if [[ $state == review_subcommand ]]
+then
+
+case ${line[1]} in
+status )
+_arguments -S 
+;;
+dcommit )
+_arguments -S 
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+retire )
+_arguments -S ": : _message 'name = NAME'"
+;;
+init )
+_arguments -S "--name[(Optional) User-friendly name for the workspace.]:name:" ": : _message 'ws_path = [WS_PATH]'"
+;;
+update )
+_arguments -S 
+;;
+current )
+_arguments -S 
+;;
+switch )
+_arguments -S ": : _message 'name = NAME'"
+;;
+ls )
+_arguments -S "-v[Print detailed information for all workspaces]:v:" "--verbose[Print detailed information for all workspaces]:verbose:"
+;;
+clean )
+_arguments -S 
+;;
+commit )
+_arguments -S 
+;;
+composite-build )
+_arguments -S "-p[Product to chdir() into before running the build; will chdir() into the workspace directory by default.]:p:_product" "--product[Product to chdir() into before running the build; will chdir() into the workspace directory by default.]:product:_product" "-t[ligradle target; build by default.]:t:" "--target[ligradle target; build by default.]:target:"
+;;
+pip-install )
+_arguments -S 
+;;
+build )
+_arguments -S "-w[(network only): list of WARs, comma separated.]:w:" "--war[(network only): list of WARs, comma separated.]:war:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _mint-workspace mint-workspace

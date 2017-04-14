@@ -1,0 +1,284 @@
+#compdef mint
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((status\:'Run the status command for the SCM of the current and all of its extSCM directories.' help\:'Display help / usage information.' who-depends-on-me\:' List the names of multiproducts that depend on this multiproduct' integ-test-2\:'{**} Run user-defined "integ-test-2" command.' integ-test-1\:'{**} Run user-defined "integ-test-1" command.' describe\:'Print out a description of a given multiproduct.' idea\:'{**} Run user-defined "idea" command.' unlock-product\:'Unlock a locked product if you are a product owner.' end-2-end\:'{**} Run user-defined "end-2-end" command.' kill\:'{**} Run user-defined "kill" command.' apidoc\:'{**} Run user-defined "apidoc" command.' wc-test\:'Run wc-test on the current multiproducts working copy' pcs\:'{**} Run user-defined "pcs" command.' publish\:'Publish artifacts to Artifactory' artifact-spec\:'Manipulate the artifact spec.' release-cfg\:'Copy config artifacts to local repository' staticanalysis\:'{**} Run user-defined "staticanalysis" command.' build\:'{**} Run user-defined "build" command.' pcl\:'{**} Run user-defined "pcl" command.' create-empty-specs\:'Creates empty artifact and config specs' test\:'{**} Run user-defined "test" command.' checkout\:'Check out a multiproduct from source control to the local file system.' deploy-data\:'Deploy a DataPack locally.' list-products\:'List the available multiproducts and print some information about them.' build-cfg\:'Build the config artifacts.' product\:'Product manipulation (e.g., creating a new product).' lock-product\:'Lock an unlocked product if you are a product owner.' multiple\:'Run multiple mint commands sequentially.' branch\:'Branch manipulation (e.g., creating a new branch).' deploy\:'Deploy your Product or Containers on this host.' update\:'Update the current multiproduct from source control to the local file system.' catalog\:'Manipulate the catalog' coverage\:'{**} Run user-defined "coverage" command.' precommit\:'{**} Run user-defined "precommit" command.' validate\:'Validate the multiproduct in the current directory tree' check-dependency-versions\:'Check for dependencies (both direct as well as transitive dependencies) that are deprecated or will be deprecated soon.' get-my-dependencies\:'List the multiproducts that this multiproduct depends on.' publish-cfg\:'Publish config artifacts to Artifactory' changelog\:'Print a changelog for the specified product.' use-artifact\:'Use artifacts from Artifactory instead of locally built ones.' setup\:'{**} Run user-defined "setup" command.' database\:'Run reinit for databases associated with a project and its dependencies.' eclipse\:'{**} Run user-defined "eclipse" command.' dev\:'Run Multiple mint commands sequentially.' dependency\:'Dependencies-related subcommands.' snapshot\:'{**} Run user-defined "snapshot" command.' undeploy\:'Undeploy your Product or Containers on this host.' clean\:'{**} Run user-defined "clean" command.' stylecheck\:'{**} Run user-defined "stylecheck" command.' release\:'Copy artifacts to local repository' post-publish\:'{**} Run user-defined "post-publish" command.' clean-untracked\:'Remove untracked files.'))" "--set-entry-point-name[BOOLEAN]:set-entry-point-name:" "--version[Show the version and exit.]:version:" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:" "--pdb[Drop into debugger before doing anything else.]:pdb:" "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--buildroot[Multiproduct base directory to find checked out source to build, get build spec and other artifacts to publish.]:buildroot:" "--masterproductlist[Override default location for the master product list.]:masterproductlist:" "--mpl[Override default location for the master product list.]:mpl:" "--release[Use the release version of the multiproduct.]:release:" "--nostats[Do not send usage stats to product dashboard.]:nostats:" "--analytics-var[{DO NOT USE} used for analytics tracking.]:analytics-var:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+status )
+_arguments -S 
+;;
+help )
+_arguments -S 
+;;
+who-depends-on-me )
+_arguments -S "--from-product-specs[Compute direct dependencies directly from the product_spec.json files fetched from the latest versions.]:from-product-specs:" "--from-lkg[Compute direct dependencies from LKG versions.]:from-lkg:" "--print-version[Print each dependency as name: <name> version: <version of this product that it depends on>]:print-version:" "--print-modules[Add dependent modules to the output of --print-version]:print-modules:" "--modules[Comma-separated list of modules; only show dependers on these modules]:modules:" "-v[Enable logging during dependency graph generation.]:v:" "--verbose[Enable logging during dependency graph generation.]:verbose:" "--details[Show all the dependency paths.]:details:" ": : _message 'product_version = [PRODUCT [VERSION]]'"
+;;
+integ-test-2 )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+integ-test-1 )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+describe )
+_arguments -S "--version[Version to get description for.]:version:" "--latest[Print out only the latest version.]:latest:" "--show-revisions[Output the SCM revision (Subversion revision number or Git commit hash) for each version]:show-revisions:" ": : _product"
+;;
+idea )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+unlock-product )
+_arguments -S "--product[Optional product to unlock]:product:_product" "-p[Optional product to unlock]:p:_product" "--message[Optional lock message.]:message:" "-m[Optional lock message.]:m:"
+;;
+end-2-end )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+kill )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+apidoc )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+wc-test )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "-d[a description for your test jobs]:d:" "--description[a description for your test jobs]:description:" "--no-mp-check[by default product-spec.json and ~/local-repo are checked for SNAPSHOT multiproducts to upload to the test servers]:no-mp-check:" "--changelist[SVN ONLY]:changelist:" "--type[Type of test: pcs, pcl, pcs_only]:type:" "--revision[By default changes in your working copy will be tested against the revision of your working copy]:revision:" "-r[By default changes in your working copy will be tested against the revision of your working copy]:r:" "--wc-root[The full path to your svn working copy root]:wc-root:" "--check-for-updates[SVN ONLY]:check-for-updates:" "--no-dependency-tests[Disables the dependency validation jobs]:no-dependency-tests:" "--environment[{production|staging}]:environment:"
+;;
+pcs )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+publish )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "-b[Specify the branch from which publish is executed]:b:" "--branch[Specify the branch from which publish is executed]:branch:" "--catalog-working-path[Path to use for checking out and modifying the version catalog.]:catalog-working-path:" "--auto-increment-off[Turn off automatic increment micro version.]:auto-increment-off:" "--catalog-update-off[Turn off automatic catalog update]:catalog-update-off:"
+;;
+artifact-spec )
+#  generate_group_completions for artifact-spec
+_arguments -S -C "*:: :->artifact-spec_subcommand" ": :((add\:'Add an entry to the artifact spec and create a corresponding .ivy file.'))" 
+if [[ $state == artifact-spec_subcommand ]]
+then
+
+case ${line[1]} in
+add )
+_arguments -S "--description[A description to put in the ivy file.]:description:" "--ivy-dir[Where the ivy files should be constructed relative to the build directory.]:ivy-dir:" "--artifact-type[Override the default type property in the ivy file, e.g]:artifact-type:" "--artifact-dir[The location of the directory containing the artifact relative to the multiproductsroot directory.]:artifact-dir:" "--extension[Override the target name convention of ending with -<extension> by providing a file extension manually.]:extension:" "--snapshot[Add -SNAPSHOT to the version used.]:snapshot:" "--classifier[Add an artifact with a classifier equal to the given configuration]:classifier:" ": : _message 'target = TARGET'" ": : _message 'conf = CONF'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+release-cfg )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--use-links[create hard links from local-repo to build dir instead of copying]:use-links:" "--version[Version of WARs to release configs for]:version:"
+;;
+staticanalysis )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+build )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+pcl )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+create-empty-specs )
+_arguments -S 
+;;
+test )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+checkout )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "-b[Name of branch to be checked out; cannot be specified along with version.]:b:" "--branch[Name of branch to be checked out; cannot be specified along with version.]:branch:" "--version[Version to check out; cannot be specified along with branch or revision.]:version:" "--revision[Revision to check out; cannot be specified along with version.]:revision:" "--replicate[Replicate the state of configs and global dev topology when the version was published.]:replicate:" "--read-only[Check out read-only source code]:read-only:" "--keep-externals[Keep external definitions on the new working copy; false by default.]:keep-externals:" "--lkg[Check out the Last Known Good for this product.]:lkg:" "--destination[Check out into the specified directory]:destination:" "--shallow[Dont check out the products specified workspace siblings next to the product.]:shallow:" "--parallel[Check out the extSCMs in parallel.]:parallel:" "--extscm-only[Check out the external SCM dependencies only.]:extscm-only:" ": : _product"
+;;
+deploy-data )
+_arguments -S "--product[The Product name for a given DataPack]:product:_product" "--payload[An optional Payload to use]:payload:" "--coordinate[An optional Ivy coordinate to use, instead of using --from-fabric]:coordinate:" "--from-fabric[Use the version of a DataPack from the given Fabric.]:from-fabric:"
+;;
+list-products )
+_arguments -S "--tags[List only multiproducts tagged with all of the specified tags, separated with ,]:tags:" "--list[Only list the names of multiproducts, separated by new line.]:list:" "--any[List the multiproducts tagged with any of the tags given in the --tags option.]:any:" "--group-by[List multiproducts sorted by fields in product-spec]:group-by:"
+;;
+build-cfg )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--user-local-override[Shortcut for "--local-override /export/home/tester/.cfg2-dev-fabric-overrides.src"]:user-local-override:" "--local-override[Enable local config overrides (dev fabric only)]:local-override:"
+;;
+product )
+#  generate_group_completions for product
+_arguments -S -C "*:: :->product_subcommand" ": :((edit\:'Edit a multiproduct.' blacklist\:'Blacklist multiproduct.' create\:'Create new multiproduct.' unblacklist\:'Unblacklist multiproduct.' delete\:'Delete a multiproduct.'))" "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--product-name[The name of the multiproduct.]:product-name:" "--no-container-config[Skip creating the container config and the associated externals.]:no-container-config:" "--use-existing-config[Use the existing app config from the repo.]:use-existing-config:"
+if [[ $state == product_subcommand ]]
+then
+
+case ${line[1]} in
+edit )
+_arguments -S "--precommit-override[Emergency override for precommit hooks]:precommit-override:"
+;;
+blacklist )
+_arguments -S "--product[The name of the multiproduct]:product:_product" "-m[Optional message]:m:"
+;;
+create )
+_arguments -S "--precommit-override[Emergency override for precommit hooks]:precommit-override:"
+;;
+unblacklist )
+_arguments -S "--product[The name of the multiproduct]:product:_product" "-m[Optional message]:m:"
+;;
+delete )
+_arguments -S "--precommit-override[Emergency override for precommit hooks]:precommit-override:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+lock-product )
+_arguments -S "--product[Optional product to lock]:product:_product" "-p[Optional product to lock]:p:_product" "--message[Optional lock message.]:message:" "-m[Optional lock message.]:m:"
+;;
+multiple )
+_arguments -S "--options[Options to pass to every command, in a comma-separated list that always ends with a comma and space (solves shell escaping problems)]:options:" ": : _message 'commands = [COMMANDS]...'"
+;;
+branch )
+#  generate_group_completions for branch
+_arguments -S -C "*:: :->branch_subcommand" ": :((create\:'Create a new branch for the product.' list\:'List valid branches for the product' delete\:'Delete a branch for the product.'))" 
+if [[ $state == branch_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "-p[The name of the multiproduct]:p:_product" "--product[The name of the multiproduct]:product:_product" "-b[The name of the branch.]:b:" "--branch[The name of the branch.]:branch:" "--release[True if this is a release branch]:release:" "--hotfix[True if this is a hotfix branch]:hotfix:" "--version[Only used for hotfix branches]:version:" "--revision[Only used for release branches]:revision:" "--lkg[Only used for release branches]:lkg:" "--precommit-override[Emergency override for precommit hooks]:precommit-override:"
+;;
+list )
+_arguments -S "-p[The name of the multiproduct]:p:_product" "--product[The name of the multiproduct]:product:_product"
+;;
+delete )
+_arguments -S "-p[The name of the multiproduct]:p:_product" "--product[The name of the multiproduct]:product:_product" "-b[The name of the branch.]:b:" "--branch[The name of the branch.]:branch:" "--precommit-override[Emergency override for precommit hooks]:precommit-override:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+deploy )
+_arguments -S "--product[Product name, only need if not deploying locally built product]:product:_product" "--version[version, only need if not deploying locally built product]:version:" "--instance[Override the instance id.]:instance:" "--start-timeout[DEPRECATED: Please use mint product edit to update your topology meta]:start-timeout:" "--debug-app[Turn on container debug port for all containers.]:debug-app:" "--skip-qei-routes[Should be used only with QEI1/QEI2/QEI3/qei-lca1/qei-ltx1 config]:skip-qei-routes:" "-a[Application to deploy.]:a:" "--application[Application to deploy.]:application:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--hot-deploy[Hot deploy war.]:hot-deploy:" "--jacoco[start jacoco agent when container starts]:jacoco:" "--variant[If using variant builds, the variant key (ivy conf) to deploy.]:variant:"
+;;
+update )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--version[Version to check out; cannot be specified along with branch or revision.]:version:" "--revision[Revision to check out; cannot be specified along with version.]:revision:" "--keep-externals[Keep external definitions on the new working copy; false by default.]:keep-externals:" "--lkg[Check out the Last Known Good for this product.]:lkg:" ": : _product"
+;;
+catalog )
+#  generate_group_completions for catalog
+_arguments -S -C "*:: :->catalog_subcommand" ": :((add\:'Add a new version entry into the catalog.' set-external-version\:'Set external facing version for a version of a product.' deprecate\:'Schedules a version/versions for deprecation.' undeprecate\:'Remove the end-of-life date for a product/version catalog entry.' get-external-version\:'Get the external facing version for a version of a product.'))" 
+if [[ $state == catalog_subcommand ]]
+then
+
+case ${line[1]} in
+add )
+_arguments -S "--branch[The branch to add]:branch:" "--eol-date[The date to deprecate the version]:eol-date:" ": : _product" ": : _message 'version = VERSION'"
+;;
+set-external-version )
+_arguments -S ": : _product" ": : _message 'version = VERSION'" ": : _message 'external_version = EXTERNAL_VERSION'"
+;;
+deprecate )
+_arguments -S "--date[The deprecation date]:date:" "--days[The number of days from today to deprecate the versions]:days:" "--older[Also deprecate any older versions]:older:" "--force[Force deprecation even if there are dependent products]:force:" ": : _product" ": : _message 'version = VERSION'"
+;;
+undeprecate )
+_arguments -S ": : _product" ": : _message 'version = VERSION'"
+;;
+get-external-version )
+_arguments -S "--no-prompt-message[Print out only the external version, not the prompt message.]:no-prompt-message:" ": : _product" ": : _message 'version = VERSION'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+coverage )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+precommit )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+validate )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:"
+;;
+check-dependency-versions )
+_arguments -S "-p[A product to run the check on]:p:_product" "--product[A product to run the check on]:product:_product" "-v[If --product is given, run check-dependency-versions on the given version of the multiproduct]:v:" "--version[If --product is given, run check-dependency-versions on the given version of the multiproduct]:version:" "-i[A list of products to ignore errors from.]:i:" "--ignored[A list of products to ignore errors from.]:ignored:"
+;;
+get-my-dependencies )
+_arguments -S "--product[Name of the multiproduct to get dependencies for.]:product:_product" "--version[Version of the multiproduct to get dependencies for.]:version:" "-v[Enable logging during dependency graph generation.]:v:" "--verbose[Enable logging during dependency graph generation.]:verbose:" "--details[Show dependency paths with submodule name and version.]:details:" "--interested-product[Only show output for modules within the specified multiproduct.]:interested-product:"
+;;
+publish-cfg )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--version[Version to publish.]:version:"
+;;
+changelog )
+_arguments -S "--product[Product name]:product:_product" "-p[Product name]:p:_product" "--from-version[Start the log at the version *after* this]:from-version:" "-f[Start the log at the version *after* this]:f:" "--to-version[End the log at this version]:to-version:" "-t[End the log at this version]:t:" "--prefix[String to prepend to each entry]:prefix:" "-e[String to prepend to each entry]:e:"
+;;
+use-artifact )
+_arguments -S "--product[Assume war is from this product.]:product:_product" "-p[Assume war is from this product.]:p:_product" "--version[Use this version (one war only).]:version:" "-v[Use this version (one war only).]:v:" "-w[War names, comma separated.]:w:" "--war[War names, comma separated.]:war:" "--fabric[Query fabric to find version.]:fabric:_fabric" "-f[Query fabric to find version.]:f:_fabric"
+;;
+setup )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+database )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--product[Use the specified products buildspec instead of the one in the current path]:product:_product" "-p[Use the specified products buildspec instead of the one in the current path]:p:_product" "--version[Specify a version of a products buildspec to use]:version:" "-v[Specify a version of a products buildspec to use]:v:"
+;;
+eclipse )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+dev )
+_arguments -S "-a[Application to deploy.]:a:" "--application[Application to deploy.]:application:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" ": : _message 'commands = [COMMANDS]...'"
+;;
+dependency )
+#  generate_group_completions for dependency
+_arguments -S -C "*:: :->dependency_subcommand" ": :((resolve\:'Return a dict mapping product names to the maximum version of that product that the current product depends on transitively.' check-constraints\:'Check whether any transitive dependencies have more than one major version.' show\:'Show dependencies, including potential upgrades to highest transitive versions.' update\:'Update versions of product dependencies' check-eol\:'Check for dependencies (both direct as well as transitive dependencies) that are deprecated or will be deprecated soon.' create-dependency-spec\:'Creates a dependency spec file under <project root>/build' update-external\:'Update a version or add an external library'))" 
+if [[ $state == dependency_subcommand ]]
+then
+
+case ${line[1]} in
+resolve )
+_arguments -S "--chain[Instead return the path to each of the resolved dependencies.]:chain:"
+;;
+check-constraints )
+_arguments -S 
+;;
+show )
+_arguments -S "--no-upgrades[Dont show upgrades and avoid hitting multproduct dashboard]:no-upgrades:"
+;;
+update )
+_arguments -S "--product[Name of the product to update]:product:_product" "-p[Name of the product to update]:p:_product" "--version[A version to update to]:version:" "-v[A version to update to]:v:" "--all[Update all dependencies to their lkgs]:all:" "-a[Update all dependencies to their lkgs]:a:" "--all-products[Update all product dependencies to their lkgs (like -a, but doesnt update build dependencies]:all-products:" "--all-build[Update all build dependencies to their lkgs (like -a, but doenst update product dependencies]:all-build:" "--upgrades[When the option is specified, the program will check whether any of the direct dependencies is at a lower version than the same dependency pulled transitively through any other dependency and offer an upgrade]:upgrades:" "--keep-major-version[When version isnt specified, use the highest version with the same major version as currently used]:keep-major-version:" "--resolve[Resolve wildcards in versions]:resolve:" "--yes[Dont confirm whether changes should be written to product-spec]:yes:" "-y[Dont confirm whether changes should be written to product-spec]:y:" "--update-integ-test-conf[Also update versions found in integ-test-conf.json (only for --product)]:update-integ-test-conf:" "--silent[Dont print summary at the end]:silent:" "-s[Dont print summary at the end]:s:" "--skip-log[Restricts program logs to warnings and errors, so its easier to use the programs output to populate code review or parse the output]:skip-log:" "--build[DEPRECATED: Use --product instead]:build:" "--external[DEPRECATED: Use mint dependency update-external instead]:external:" "--old-style[DEPRECATED: Write product spec in old-style format]:old-style:" "--related-upgrades[DEPRECATED: This is a default option now]:related-upgrades:" "--changelog[DEPRECATED: The flag is turned on by default]:changelog:"
+;;
+check-eol )
+_arguments -S "-p[A product to run the check on]:p:_product" "--product[A product to run the check on]:product:_product" "-v[If --product is given, run check-dependency-versions on the given version of the multiproduct]:v:" "--version[If --product is given, run check-dependency-versions on the given version of the multiproduct]:version:" "-i[A list of products to ignore errors from.]:i:" "--ignored[A list of products to ignore errors from.]:ignored:"
+;;
+create-dependency-spec )
+_arguments -S "--variant-index[Which variant configuration to use]:variant-index:" "--overwrite[Should dependency spec be overwritten]:overwrite:" "--base-dependency-spec[A relative path from trunk dir to a spec, to base the dependency spec of]:base-dependency-spec:" "--snapshot[Append -SNAPSHOT to the version]:snapshot:"
+;;
+update-external )
+_arguments -S ": : _message 'library = LIBRARY'" ": : _message 'ivy-coordinate = IVY_COORDINATE'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+snapshot )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+undeploy )
+_arguments -S "--product[Product name, only need if not deploying locally built product]:product:_product" "--version[version, only need if not deploying locally built product]:version:" "--instance[Override the instance id.]:instance:" "--stop-timeout[DEPRECATED: Please use mint product edit to update your topology meta]:stop-timeout:" "--skip-qei-routes[Should be used only with QEI1/QEI2/QEI3/qei-lca1/qei-ltx1 config]:skip-qei-routes:" "-a[Application to undeploy.]:a:" "--application[Application to undeploy.]:application:" "-w[List of WARs to be undeployed.]:w:" "--war[List of WARs to be undeployed.]:war:" "--fabric[Default fabric is dev]:fabric:_fabric" "-f[Default fabric is dev]:f:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--hot-deploy[Container remains running after war undeployed.]:hot-deploy:" "--variant[If using variant builds, the variant key (ivy conf) to undeploy.]:variant:"
+;;
+clean )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+stylecheck )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+release )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--use-links[create hard links from local-repo to build dir instead of copying]:use-links:"
+;;
+post-publish )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:" "--pass-through[Pass the given string through to the underlying command.]:pass-through:" "--reserve-version[Increment the version and commit the change in the product-spec atomically]:reserve-version:" "--resolve-highest[For ligradle products, build with the highest version of the specified multiproduct transitively]:resolve-highest:" "-b[Specify the branch from which build is executed]:b:" "--branch[Specify the branch from which build is executed]:branch:" "--rest-model-backwards[allow for backwards-compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=backwards]:rest-model-backwards:" "--rest-model-ignore[ignore api compatibility when using newer versions of pegasus; currently only in gradle, passes to build property -Prest.model.compatibility=ignore]:rest-model-ignore:" "--variant-index[Which variant configuration should this build use]:variant-index:" "--overwrite-dependency-spec[Should dependency spec be overwritten]:overwrite-dependency-spec:" "-w[List of WARs, comma separated.]:w:" "--war[List of WARs, comma separated.]:war:" "-f[List of Fabrics, comma separated.]:f:_fabric" "--fabric[List of Fabrics, comma separated.]:fabric:_fabric" "--config[DEPRECATED - use --fabric instead.]:config:" "--ignore-version-checker[Dont validate that dependencies have non-deprecated versions.]:ignore-version-checker:"
+;;
+clean-untracked )
+_arguments -S "--dry-run[Run the commands but do not create permanent changes.]:dry-run:" "--dryrun[Run the commands but do not create permanent changes.]:dryrun:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _mint mint

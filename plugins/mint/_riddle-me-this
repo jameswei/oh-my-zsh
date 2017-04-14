@@ -1,0 +1,21 @@
+#compdef riddle-me-this
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((check\:'Check target for encryption correctness' re-encrypt\:'Re-encrypt target folder correctly, where/if needed'))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+check )
+_arguments -S "--fabric[Comma-separated Fabric names]:fabric:_fabrics" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "--thorough[Query all riddlers to find who encrypted a given value.]:thorough:" "--verbose[Verbose information.]:verbose:" ": : _message 'target = [TARGET]'"
+;;
+re-encrypt )
+_arguments -S "--fabric[Comma-separated Fabric names]:fabric:_fabrics" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "--thorough[Query all riddlers to find who encrypted a given value.]:thorough:" ": : _message 'target = [TARGET]'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _riddle-me-this riddle-me-this

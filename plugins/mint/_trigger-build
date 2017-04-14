@@ -1,0 +1,5 @@
+#compdef trigger-build
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "--dryrun[Avoid side effects]:dryrun:" "--skip-precommit[Add precommit override to any generated commits]:skip-precommit:" "--branch[Branch to use]:branch:" "--product[The product to build]:product:" "-m[Additional note to append to the commit message.]:m:" "--message[Additional note to append to the commit message.]:message:" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:"
+compdef _trigger-build trigger-build

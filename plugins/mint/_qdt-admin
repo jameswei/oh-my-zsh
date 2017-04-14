@@ -1,0 +1,163 @@
+#compdef qdt-admin
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for clix
+_arguments -S -C "*:: :->clix_subcommand" ": :((application\:'Manage Applications in QDT ' d2service\:'Manage D2 Services in QDT ' user\:'Manage users in QDT '))" "--target[The target environment {ei/prod}]:target:" "-t[The target environment {ei/prod}]:t:" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:"
+  if [[ $state == clix_subcommand ]]
+  then
+  
+case ${line[1]} in
+application )
+#  generate_group_completions for application
+_arguments -S -C "*:: :->application_subcommand" ": :((enable\:'Enable an application ' list\:'View enabled applications ' access\:'Manage application memberships in D2 Service access list ' add\:'Add an application ' disable\:'Disable an application ' urlmap\:'Manage urlmaps in QDT '))" 
+  if [[ $state == application_subcommand ]]
+  then
+  
+case ${line[1]} in
+enable )
+_arguments -S "--application[Name of the application to enable]:application:" "-a[Name of the application to enable]:a:"
+;;
+list )
+_arguments -S "--application[Filter by application name]:application:" "-a[Filter by application name]:a:"
+;;
+access )
+#  generate_group_completions for access
+_arguments -S -C "*:: :->access_subcommand" ": :((enable\:'Add application to D2 Service access list ' disable\:'Remove application from D2 Service access list '))" 
+  if [[ $state == access_subcommand ]]
+  then
+  
+case ${line[1]} in
+enable )
+_arguments -S "--application[Name of the application to allow for service]:application:" "-a[Name of the application to allow for service]:a:" "--d2service[Name of the service to enable for application]:d2service:" "-d[Name of the service to enable for application]:d:" "--method[The http method (eg]:method:" "-m[The http method (eg]:m:"
+;;
+disable )
+_arguments -S "--application[The application to deny D2 Service access]:application:" "-a[The application to deny D2 Service access]:a:" "--d2service[The D2 Service to block for application]:d2service:" "--method[The D2 Service HTTP method (eg]:method:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+add )
+_arguments -S "--application[Name of the application to add]:application:" "-a[Name of the application to add]:a:" "--product[Name of the product]:product:" "-p[Name of the product]:p:"
+;;
+disable )
+_arguments -S "--application[Name of the application to disable]:application:" "-a[Name of the application to disable]:a:"
+;;
+urlmap )
+#  generate_group_completions for urlmap
+_arguments -S -C "*:: :->urlmap_subcommand" ": :((add\:'Associate a URL prefix to an application ' remove\:'Remove a URL prefix to application mapping by id '))" 
+  if [[ $state == urlmap_subcommand ]]
+  then
+  
+case ${line[1]} in
+add )
+_arguments -S "--prefix[The prefix of the URL path to map eg]:prefix:" "-p[The prefix of the URL path to map eg]:p:" "--application[The application to map to]:application:" "-a[The application to map to]:a:"
+;;
+remove )
+_arguments -S "--application[The id of the urlmap entry to remove]:application:" "--prefix[The prefix of the URL path to map eg]:prefix:" "-p[The prefix of the URL path to map eg]:p:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+d2service )
+#  generate_group_completions for d2service
+_arguments -S -C "*:: :->d2service_subcommand" ": :((inspection\:'Mange inspections rules ' add\:'Add an service ' enable\:'Enable a D2 Service ' list\:'List enabled services ' disable\:'Disable a service '))" 
+  if [[ $state == d2service_subcommand ]]
+  then
+  
+case ${line[1]} in
+inspection )
+#  generate_group_completions for inspection
+_arguments -S -C "*:: :->inspection_subcommand" ": :((add\:'Add rule for finding member id in service call ' remove\:'Remove rule for finding member id in service call '))" 
+  if [[ $state == inspection_subcommand ]]
+  then
+  
+case ${line[1]} in
+add )
+_arguments -S "--d2service[The D2 Service name]:d2service:" "-d[The D2 Service name]:d:" "--method[The http method (eg]:method:" "-m[The http method (eg]:m:" "--rule[The inspection rule]:rule:" "-r[The inspection rule]:r:" "--type[Type of rule {path/query/body_query/body_json}]:type:" "-t[Type of rule {path/query/body_query/body_json}]:t:"
+;;
+remove )
+_arguments -S "--d2service[The D2 Service name]:d2service:" "-d[The D2 Service name]:d:" "--method[The http method (eg]:method:" "-m[The http method (eg]:m:" "--rule[The inspection rule]:rule:" "-r[The inspection rule]:r:" "--type[Type of rule {path/query/body_query/body_json}]:type:" "-t[Type of rule {path/query/body_query/body_json}]:t:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+add )
+_arguments -S "--d2service[Name of the service to add]:d2service:" "-d[Name of the service to add]:d:"
+;;
+enable )
+_arguments -S "--d2service[Name of the service to enable]:d2service:" "-d[Name of the service to enable]:d:"
+;;
+list )
+_arguments -S 
+;;
+disable )
+_arguments -S "--d2service[Name of the service to disable]:d2service:" "-d[Name of the service to disable]:d:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+user )
+#  generate_group_completions for user
+_arguments -S -C "*:: :->user_subcommand" ": :((access\:'Manage user memberships in application access list ' enable\:'Enable user to use QDT ' list\:'View user in QDT ' disable\:'Disable user from using QDT '))" 
+  if [[ $state == user_subcommand ]]
+  then
+  
+case ${line[1]} in
+access )
+#  generate_group_completions for access
+_arguments -S -C "*:: :->access_subcommand" ": :((enable\:'Add user to application access list ' disable\:'Remove user from application access list '))" 
+  if [[ $state == access_subcommand ]]
+  then
+  
+case ${line[1]} in
+enable )
+_arguments -S "--user[The username of the user to allow application access]:user:" "-u[The username of the user to allow application access]:u:" "--application[Name of the application to enable for user]:application:" "-a[Name of the application to enable for user]:a:"
+;;
+disable )
+_arguments -S "--user[The user to remove from application access list]:user:" "-u[The user to remove from application access list]:u:" "--application[The application to deny user access to]:application:" "-a[The application to deny user access to]:a:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+enable )
+_arguments -S "--user[The username of the user to enable]:user:" "-u[The username of the user to enable]:u:"
+;;
+list )
+_arguments -S "--user[Optional Filter by username]:user:" "-u[Optional Filter by username]:u:"
+;;
+disable )
+_arguments -S "--user[The username of the user to disable]:user:" "-u[The username of the user to disable]:u:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _qdt-admin qdt-admin

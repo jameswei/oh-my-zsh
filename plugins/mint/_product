@@ -1,0 +1,5 @@
+#autoload
+
+local matches
+matches=( $(_cached_tmctf product "${PREFIX}") )
+compadd -a matches

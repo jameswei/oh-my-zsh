@@ -1,0 +1,33 @@
+#compdef lid-admin
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((enable\:'Enable deployment-processor bank with given --tag on given --fabrics' grep\:'Grep local rotated logs (targets: d-p, keep-running, access logs)' running\:'Show running processes.' installed\:'Show whats installed on this box.' tail\:'Tail local logs (targets: d-p, keep-running, access logs).' disable\:'Disable deployment-processor bank with given --tag on given --fabrics'))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+enable )
+_arguments -S "--fabric[Comma-separated Fabric names]:fabric:_fabrics" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" ": : _message 'tag = TAG'"
+;;
+grep )
+_arguments -S "--days[Number of past days to look at {default: 2 days}.]:days:" "-d[Number of past days to look at {default: 2 days}.]:d:" "--start[Start date to consider {default: N days from --end}.]:start:" "--end[End date to consider {default: today}.]:end:" "--targets[Comma-separated list of targets {default: d-p}.]:targets:" "-t[Comma-separated list of targets {default: d-p}.]:t:" ": : _message 'what = [WHAT]'"
+;;
+running )
+_arguments -S "--targets[Comma-separated list of targets {default: d-p}.]:targets:" "-t[Comma-separated list of targets {default: d-p}.]:t:"
+;;
+installed )
+_arguments -S 
+;;
+tail )
+_arguments -S "--lines[Number of lines to start tail with {default: 10}.]:lines:" "-n[Number of lines to start tail with {default: 10}.]:n:" "--targets[Comma-separated list of targets {default: d-p}.]:targets:" "-t[Comma-separated list of targets {default: d-p}.]:t:"
+;;
+disable )
+_arguments -S "--fabric[Comma-separated Fabric names]:fabric:_fabrics" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" ": : _message 'tag = TAG'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _lid-admin lid-admin

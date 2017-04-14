@@ -1,0 +1,34 @@
+#autoload
+
+_cached_tmctf() {
+  local subcommand filemod filepath
+  subcommand="$1"; shift
+  query="$@"
+  filepath=~/.tmctf_${subcommand}
+  if [[ -f "$filepath" ]]
+  then
+    if [[ $(uname) == 'Darwin' ]]
+    then
+      filemod="$(stat -f %m -- "$filepath")"
+    else
+      filemod="$(stat -c %Y -- "$filepath")"
+    fi
+    if [[ "$(( $(date +%s) - $filemod ))" -gt 600 ]]
+    then
+      rm "$filepath"
+    fi
+  fi
+  if [[ ! -f "$filepath" ]]
+  then
+    tabby-mctabface $subcommand 2>/dev/null > $filepath
+  fi
+
+  if [[ -n "${query}" ]]
+  then
+    cat $filepath | grep -i -e "^${query/-/.*-}" | head -9 | tr '\n' ' '
+  else
+    cat $filepath
+  fi
+}
+
+_cached_tmctf "$@"

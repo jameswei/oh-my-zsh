@@ -1,0 +1,48 @@
+#compdef work
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for cli
+_arguments -S -C "*:: :->cli_subcommand" ": :((status\:'Get status of workspace.' configure\:'Configure global settings.' wc-test\:'Submit wc-test for workspace.' create\:'Create a workspace directory.' idea\:'Generate .ipr files for IntelliJ IDEA.' build\:'Build workspace.' clean\:'Cleans out untracked files, but not extSCMs.' push\:'Push all changes' rm\:'Remove a product or set of products.' checkout\:'Checkout a product or set of products.' review\:'Submit reviews for workspace.'))" "--remote[Run this command on configured remote host.]:remote:" "--remote-workdir[TEXT]:remote-workdir:" "--mosh[BOOLEAN]:mosh:" "--notification-cmd[TEXT]:notification-cmd:"
+if [[ $state == cli_subcommand ]]
+then
+
+case ${line[1]} in
+status )
+_arguments -S 
+;;
+configure )
+_arguments -S 
+;;
+wc-test )
+_arguments -S 
+;;
+create )
+_arguments -S ": : _message 'description = [DESCRIPTION]...'"
+;;
+idea )
+_arguments -S 
+;;
+build )
+_arguments -S 
+;;
+clean )
+_arguments -S 
+;;
+push )
+_arguments -S 
+;;
+rm )
+_arguments -S ": : _message 'product_names = [PRODUCT_NAMES]...'"
+;;
+checkout )
+_arguments -S ": : _message 'product_names = [PRODUCT_NAMES]...'"
+;;
+review )
+_arguments -S 
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _work work

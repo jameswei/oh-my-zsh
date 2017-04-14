@@ -1,0 +1,18 @@
+#compdef lid-runner
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((execute\:'Entry point for running lid-runner (old host-plan-runner)'))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+execute )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-p[Plan ID to run.]:p:" "--plan-id[Plan ID to run.]:plan-id:" "-n[Perform a dry run]:n:" "--dry-run[Perform a dry run]:dry-run:" "--simulate[Perform a dry run, but update Alfred with no-op step results.]:simulate:" "--force[Force the run, even if a previous installation exists.]:force:" "--url[Override the default URL of the Alfred Server.]:url:" "--simulate-host[Simulate a run from specified hostname (useful for debugging deployment steps).]:simulate-host:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _lid-runner lid-runner

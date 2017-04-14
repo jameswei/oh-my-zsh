@@ -1,0 +1,5 @@
+#compdef auto2to4
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "-y[Confirm the action without prompting.]:y:" "--yes[Confirm the action without prompting.]:yes:" "-l[Set the max line length, defaults to 160]:l:" "--max-line-length[Set the max line length, defaults to 160]:max-line-length:" "-v[Show conversion steps]:v:" "--verbose[Show conversion steps]:verbose:" "-A[Fix more than just whitespace]:A:" "--all-pep8[Fix more than just whitespace]:all-pep8:" "--version[Show the version and exit.]:version:" ": : _message 'basedir = BASEDIR'"
+compdef _auto2to4 auto2to4

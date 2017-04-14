@@ -1,0 +1,37 @@
+#compdef userain
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((estimate\:'A class of functions that provide estimation of slice sizing, returned hosts, etc...'))" "--version[Show the version and exit.]:version:" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+  if [[ $state == main_subcommand ]]
+  then
+  
+case ${line[1]} in
+estimate )
+#  generate_group_completions for estimate
+_arguments -S -C "*:: :->estimate_subcommand" ": :((waste\:'Estimate amount of waste in a given fabric or fabric-group and provide recommendation on appropriate changes' slice\:'Estimate proper slice sizing for an existing service, based upon inGraphs data' return\:'Given a list of services in a fabric, determine which services, when paired together, will return the most hosts for the Rain pool'))" "--version[Show the version and exit.]:version:"
+  if [[ $state == estimate_subcommand ]]
+  then
+  
+case ${line[1]} in
+waste )
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:" "-f[Comma-separated Fabric names]:f:" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "--days[The number of days to consider for calculation]:days:" "-d[The number of days to consider for calculation]:d:" "--service-xss[Specify the thread stack size (-Xss) used when calculating additional off-heap memory allocation for Java services (Xss * maxThreads)]:service-xss:" "--progress[Show progress of various steps in the calculation process.]:progress:" "--version[Show the version and exit.]:version:"
+;;
+slice )
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:" "-f[Comma-separated Fabric names]:f:" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "--days[The number of days to consider for calculation]:days:" "-d[The number of days to consider for calculation]:d:" "--service-xss[Specify the thread stack size (-Xss) used when calculating additional off-heap memory allocation for Java services (Xss * maxThreads)]:service-xss:" "--progress[Show progress of various steps in the calculation process.]:progress:" "--tags[Provide separate estimates for each config/product tag combination.]:tags:" "--instance[Limit results to a specific instance number]:instance:" "--version[Show the version and exit.]:version:" ": : _message 'name = <name>'"
+;;
+return )
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:" "-f[Comma-separated Fabric names]:f:" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "*--product[Product(s) to get status for, eg]:product:" "*-p[Product(s) to get status for, eg]:p:" "*--application[Application(s) to get status for, eg]:application:" "*-a[Application(s) to get status for, eg]:a:" "*--service[Service(s) to get status for, eg]:service:" "*-s[Service(s) to get status for, eg]:s:" "*--team[Filter application(s) to those owned by the given SRE team(s), comma separated (per go/owners).]:team:" "*-t[Filter application(s) to those owned by the given SRE team(s), comma separated (per go/owners).]:t:" "*--exclude[Exclude application(s) to those in the given comma separated list.]:exclude:" "*-x[Exclude application(s) to those in the given comma separated list.]:x:" "--output[Format to output results as]:output:" "--progress[Show progress of various steps in the calculation process]:progress:" "--headers[Show output headers.]:headers:" "--totals[Show per group totals.]:totals:" "--count[Number of services to target.]:count:" "-c[Number of services to target.]:c:" "--qualify-percent[The percent of hardware returned from a batch to qualify for inclusion]:qualify-percent:" "--version[Show the version and exit.]:version:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _userain userain

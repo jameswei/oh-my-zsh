@@ -1,0 +1,21 @@
+#compdef locker
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((list\:'List all the available lockers on this host.' run\:'Run a command inside a locker.'))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+list )
+_arguments -S 
+;;
+run )
+_arguments -S ": : _message 'locker_id = LOCKER_ID'" ": : _message 'command = COMMAND'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _locker locker

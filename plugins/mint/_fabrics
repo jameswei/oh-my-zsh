@@ -1,0 +1,3 @@
+#autoload
+
+_values -s , 'fabrics' $(_cached_tmctf fabrics '')

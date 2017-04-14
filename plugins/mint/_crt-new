@@ -1,0 +1,112 @@
+#compdef crt-new
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((pause\:'Manage CRT deployment pauses' rollback\:'Schedule a product version to rollback' preferences\:'Manage deployable preferences' denominate\:'Denominate a product' nominate\:'Nominate a product to deploy' alert\:'Manage internal engineering alerts' event\:'Find CRT events'))" "--version[Show the version and exit.]:version:" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+pause )
+#  generate_group_completions for pause
+_arguments -S -C "*:: :->pause_subcommand" ": :((edit\:'Update a CRT pause' create\:'Create a CRT pause' find\:'Find pauses by criteria and time' delete\:'Delete a CRT pause by ID'))" 
+if [[ $state == pause_subcommand ]]
+then
+
+case ${line[1]} in
+edit )
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "-fg[The name of the new fabric group]:fg:" "--fabric-group[The name of the new fabric group]:fabric-group:" "-i[The UUID of the pause to edit]:i:" "--id[The UUID of the pause to edit]:id:" "--pause-id[The UUID of the pause to edit]:pause-id:" "-p[The applicable new product name]:p:_product" "--product[The applicable new product name]:product:_product" "-t[The new tag to assign to the pause]:t:" "--tag[The new tag to assign to the pause]:tag:" "-s[A string representing the new datetime for the start of the pause]:s:" "--start-time[A string representing the new datetime for the start of the pause]:start-time:" "-e[A string representing the new datetime for the end of the pause]:e:" "--end-time[A string representing the new datetime for the end of the pause]:end-time:" "-r[An updated reason for the pauses existance]:r:" "--reason[An updated reason for the pauses existance]:reason:" "-b[An updated bug or issue ID as it appears in JIRA]:b:" "--bug[An updated bug or issue ID as it appears in JIRA]:bug:" "*-o[New applicable origins to which the pause originated from]:o:" "*--origins[New applicable origins to which the pause originated from]:origins:"
+;;
+create )
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "-fg[The name of the fabric group]:fg:" "--fabric-group[The name of the fabric group]:fabric-group:" "-p[The applicable product name]:p:_product" "--product[The applicable product name]:product:_product" "-t[A tag to assign to the pause]:t:" "--tag[A tag to assign to the pause]:tag:" "-s[A string representing the datetime for the start of the pause]:s:" "--start-time[A string representing the datetime for the start of the pause]:start-time:" "-e[A string representing the datetime for the end of the pause]:e:" "--end-time[A string representing the datetime for the end of the pause]:end-time:" "-r[The reason for creating the pause]:r:" "--reason[The reason for creating the pause]:reason:" "-b[The bug or issue ID as it appears in JIRA]:b:" "--bug[The bug or issue ID as it appears in JIRA]:bug:" "*-o[Applicable origins to which the pause applies]:o:" "*--origins[Applicable origins to which the pause applies]:origins:"
+;;
+find )
+_arguments -S "-u[The LDAP username of the creator of the pause to filter by]:u:" "--username[The LDAP username of the creator of the pause to filter by]:username:" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "-fg[The name of the fabric group to filter by]:fg:" "--fabric-group[The name of the fabric group to filter by]:fabric-group:" "-i[The UUID of the pause to lookup (if only querying for a single pause)]:i:" "--id[The UUID of the pause to lookup (if only querying for a single pause)]:id:" "--pause-id[The UUID of the pause to lookup (if only querying for a single pause)]:pause-id:" "-p[The applicable product name to filter by]:p:_product" "--product[The applicable product name to filter by]:product:_product" "-t[The tag to filter pauses by]:t:" "--tag[The tag to filter pauses by]:tag:" "--time[A string YYYY-MM-DD HH:MM:SS representing the datetime at which only active pauses at that time will be returned]:time:"
+;;
+delete )
+_arguments -S "-i[The UUID of the pause to delete]:i:" "--id[The UUID of the pause to delete]:id:" "--pause-id[The UUID of the pause to delete]:pause-id:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+rollback )
+_arguments -S "-p[The name of the product to rollback]:p:_product" "--product[The name of the product to rollback]:product:_product" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-t[The tag of the product to rollback]:t:" "--tag[The tag of the product to rollback]:tag:" "-r[The version of the product to rollback to]:r:" "--rollback-version[The version of the product to rollback to]:rollback-version:"
+;;
+preferences )
+#  generate_group_completions for preferences
+_arguments -S -C "*:: :->preferences_subcommand" ": :((set\:'Set preferences for a deployable' get\:'Get preferences for a deployable'))" 
+if [[ $state == preferences_subcommand ]]
+then
+
+case ${line[1]} in
+set )
+_arguments -S "-p[The name of the product to set a preference value for]:p:_product" "--product[The name of the product to set a preference value for]:product:_product" "-k[The key name of the deployable preference to set]:k:" "--key[The key name of the deployable preference to set]:key:" "-v[The value of the deployable preference to set]:v:" "--value[The value of the deployable preference to set]:value:"
+;;
+get )
+_arguments -S "-p[The name of the product to get preferences for]:p:_product" "--product[The name of the product to get preferences for]:product:_product"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+denominate )
+_arguments -S "-p[The name of the product to denominate]:p:_product" "--product[The name of the product to denominate]:product:_product" "-v[The version of the product to denominate]:v:" "--version[The version of the product to denominate]:version:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-t[The tag of the product to denominate]:t:" "--tag[The tag of the product to denominate]:tag:"
+;;
+nominate )
+_arguments -S "-p[The name of the product to nominate]:p:_product" "--product[The name of the product to nominate]:product:_product" "-v[The version of the product to nominate]:v:" "--version[The version of the product to nominate]:version:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-t[The tag of the product to nominate]:t:" "--tag[The tag of the product to nominate]:tag:"
+;;
+alert )
+#  generate_group_completions for alert
+_arguments -S -C "*:: :->alert_subcommand" ": :((create\:'Create internal engineering alert' delete\:'Delete internal engineering alert by ID' find\:'Find internal engineering alerts by criteria' update\:'Update an internal engineering alert' get\:'Get internal engineering alerts by ID'))" 
+if [[ $state == alert_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "-s[A string representing the start datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[A string representing the start datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[A string representing the end datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[A string representing the end datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:end-time:" "-c[A string representing the content of the internal engineering alert]:c:" "--content[A string representing the content of the internal engineering alert]:content:" "-d[A string of comma seperated destinations as specified in AlertDestination pegasus model]:d:" "--destinations[A string of comma seperated destinations as specified in AlertDestination pegasus model]:destinations:" "-u[The LDAP username of the creator of the alert]:u:" "--username[The LDAP username of the creator of the alert]:username:"
+;;
+delete )
+_arguments -S "-i[The ID of the internal engineering alert]:i:" "--id[The ID of the internal engineering alert]:id:"
+;;
+find )
+_arguments -S "-n[A bool which searches for active alerts]:n:" "--active-now[A bool which searches for active alerts]:active-now:" "-a[A string representing the date at which the alert should be active, formatted as YYYY-MM-DD HH:MM:SS]:a:" "--active-at[A string representing the date at which the alert should be active, formatted as YYYY-MM-DD HH:MM:SS]:active-at:" "-d[A string of comma seperated destinations as specified in AlertDestination pegasus model]:d:" "--destinations[A string of comma seperated destinations as specified in AlertDestination pegasus model]:destinations:" "-u[The LDAP username of the creator of the alert to filter by]:u:" "--username[The LDAP username of the creator of the alert to filter by]:username:"
+;;
+update )
+_arguments -S "-i[The ID of the internal engineering alert]:i:" "--id[The ID of the internal engineering alert]:id:" "-s[A string representing the start datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[A string representing the start datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[A string representing the end datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[A string representing the end datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:end-time:" "-c[A string representing the content of the internal engineering alert]:c:" "--content[A string representing the content of the internal engineering alert]:content:" "-d[A string of comma seperated destinations as specified in AlertDestination pegasus model]:d:" "--destinations[A string of comma seperated destinations as specified in AlertDestination pegasus model]:destinations:" "-u[The LDAP username of the creator of the alert]:u:" "--username[The LDAP username of the creator of the alert]:username:"
+;;
+get )
+_arguments -S "-i[The ID of the internal engineering alert]:i:" "--id[The ID of the internal engineering alert]:id:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+event )
+#  generate_group_completions for event
+_arguments -S -C "*:: :->event_subcommand" ": :((find\:'Find events by criteria'))" 
+if [[ $state == event_subcommand ]]
+then
+
+case ${line[1]} in
+find )
+_arguments -S "-p[The name of the product to get events and their notes for.]:p:_product" "--product[The name of the product to get events and their notes for.]:product:_product" "-s[A string YYYY-MM-DD HH:MM:SS representing the start datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:s:" "--start-time[A string YYYY-MM-DD HH:MM:SS representing the start datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:start-time:" "-e[A string representing the end datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:e:" "--end-time[A string representing the end datetime for events, formatted as YYYY-MM-DD HH:MM:SS]:end-time:" "-t[The type of event to get events and notes for]:t:" "--event-type[The type of event to get events and notes for]:event-type:" "-n[Only display the events that have notes.]:n:" "--only-events-with-notes[Only display the events that have notes.]:only-events-with-notes:" "-c[Output events to csv format.]:c:" "--csv[Output events to csv format.]:csv:" "-d[Scope events to the most recent within each context and include the elapsed time in seconds since the start of the event.]:d:" "--duration[Scope events to the most recent within each context and include the elapsed time in seconds since the start of the event.]:duration:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _crt-new crt-new

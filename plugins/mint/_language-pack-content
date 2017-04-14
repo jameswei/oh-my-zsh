@@ -1,0 +1,5 @@
+#compdef language-pack-content
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "--fabric[Comma-separated Fabric names]:fabric:_fabrics" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "-p[Payload to query language pack status for.]:p:" "--payload[Payload to query language pack status for.]:payload:" "-l[Locale of language pack to read.]:l:" "--locale[Locale of language pack to read.]:locale:" "-r[Resource file to cat.]:r:" "--resource[Resource file to cat.]:resource:"
+compdef _language-pack-content language-pack-content

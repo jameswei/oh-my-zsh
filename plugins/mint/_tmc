@@ -1,0 +1,36 @@
+#compdef tmc
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((wc-run\:'Run the given task with the current multiproducts working copy' register-tasks\:'Registers the current project with testmanager2' archive-config\:'Archives the tm-config.json file' run-remote\:'Run the task associated with a product remotely' run-local\:'Checkout a product locally and run the specified task for that product.' onboard\:'Onboards a multiproduct on TMC.' validate-config\:'Validates the tm-config.json file in current workspace.'))" "--log[The log level to execute]:log:"
+  if [[ $state == main_subcommand ]]
+  then
+  
+case ${line[1]} in
+wc-run )
+_arguments -S "--tmc-server[Send the tmc request to staging or local tmc server for debugging.]:tmc-server:" "--no-stream[Disable remote output streaming.]:no-stream:" ": : _message 'task-name = TASK_NAME'"
+;;
+register-tasks )
+_arguments -S "--config-folder[The folder of tm-config to upload.]:config-folder:" "--override-access[Run the command for any user]:override-access:" "--tmc-server[Send the tmc request to staging or local tmc server for debugging.]:tmc-server:"
+;;
+archive-config )
+_arguments -S "--archive-folder[The folder of tm-config to archive.]:archive-folder:"
+;;
+run-remote )
+_arguments -S "--tmc-server[Send the tmc request to staging or local tmc server for debugging.]:tmc-server:" "--no-stream[Disable remote output streaming.]:no-stream:" ": : _message 'multiproduct = MULTIPRODUCT'" ": : _message 'task-name = TASK_NAME'"
+;;
+run-local )
+_arguments -S "--version[The version of the multiproduct to checkout]:version:" ": : _message 'multiproduct = MULTIPRODUCT'" ": : _message 'task-name = TASK_NAME'"
+;;
+onboard )
+_arguments -S "--root-folder[The root folder of multiproduct.]:root-folder:"
+;;
+validate-config )
+_arguments -S 
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _tmc tmc

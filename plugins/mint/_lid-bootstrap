@@ -1,0 +1,5 @@
+#compdef lid-bootstrap
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "-n[Skip stop and start steps.]:n:" "--dry-run[Skip stop and start steps.]:dry-run:" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:" ": : _product" ": : _message 'version = VERSION'"
+compdef _lid-bootstrap lid-bootstrap

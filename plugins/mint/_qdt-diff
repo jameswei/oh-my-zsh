@@ -1,0 +1,21 @@
+#compdef qdt-diff
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for clix
+_arguments -S -C "*:: :->clix_subcommand" ": :((application\:'Compare Application Access in QDT' d2service\:'Compare d2services in QDT'))" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:"
+  if [[ $state == clix_subcommand ]]
+  then
+  
+case ${line[1]} in
+application )
+_arguments -S "--application[The name of the application to compare]:application:" "-a[The name of the application to compare]:a:" "--from[The name of environment for the base of the diff]:from:" "--generate[Generate the qdt commands needed to the apply changes]:generate:" "--to[The name of environment for the target of the diff]:to:"
+;;
+d2service )
+_arguments -S "--from[The name of environment for the base of the diff]:from:" "--generate[Generate the qdt commands needed to apply changes to the target]:generate:" "--to[The name of environment for the target of the diff]:to:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _qdt-diff qdt-diff

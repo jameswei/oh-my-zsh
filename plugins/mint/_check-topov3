@@ -1,0 +1,5 @@
+#compdef check-topov3
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "--use-v2[Assume v2 is correct (output instructions only to fix v3).]:use-v2:" "--use-v3[Assume v3 is correct (output instructions only to fix v2).]:use-v3:" "--todo-only[Show deployables where theres something left to-do only.]:todo-only:" "--kind[Select all candidates with the given kind (generic, jetty, tomcat).]:kind:" "--check-timeouts[Also check diffs on force-kill-delay and start/stop timeouts.]:check-timeouts:" "--auto-fix[Look for automatically fixable issues, use --auto-fix=report or --auto-fix=commit.]:auto-fix:" "--jetty9[Recommend jetty9 skeleton.]:jetty9:" "--no-color[Dont highlight output using colors.]:no-color:" ": : _message 'candidates = [CANDIDATES]...'"
+compdef _check-topov3 check-topov3

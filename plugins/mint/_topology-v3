@@ -1,0 +1,121 @@
+#compdef topology-v3
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((slice\:'Manage Application Slices ' settings\:'Manage Product/Application Settings ' whitelist\:'List or modify the Topology v3 whitelist' instance\:'Manage Application Instances ' import\:'Import Topology v2 roles as static slices' check\:'Validate and potentially fix issues with one or more products topology data'))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+slice )
+#  generate_group_completions for slice
+_arguments -S -C "*:: :->slice_subcommand" ": :((fork\:'Fork an existing slice to create a new slice with updated specs' create\:'Create an application slice and set it up with a basic host spec.' delete\:'Delete an application slice' list\:'List application slices matching the specified criteria' show\:'Show details about a slice.'))" 
+if [[ $state == slice_subcommand ]]
+then
+
+case ${line[1]} in
+fork )
+_arguments -S "--product-tag[A product tag to apply to the slice.]:product-tag:" "--no-config-tags[Dont set any config tags on the new slice.]:no-config-tags:" "--config-tags[Config tags to add to all instances of this slice]:config-tags:" "--no-info-tags[Dont set any info tags on the new slice.]:no-info-tags:" "--info-tags[Info tags to add to all instances of this slice]:info-tags:" "--edit-wanted-apps[Prompt for additional applications that are wanted by the main app]:edit-wanted-apps:" "--team[Team name that owns this Application {choices: CNC, Central, Consumer, Content, Core, DDS, Feed, Growth, Identity, Mobile, Money, MonitoringInfrastructure, NYC, NetOps, Other, Platform, SI, SNA, Security, SlideShare, Storage, SysOps, Tools, Traffic}]:team:" "--env[Rain server environment]:env:" ": : _message 'slice_id = SLICE_ID'"
+;;
+create )
+_arguments -S "--env[Rain server environment]:env:" "--variant-key[Variant for which the application needs to be build]:variant-key:" "--info-tags[An info tag to add to all instances of this slice]:info-tags:" "--config-tags[A config tag to add to all instances of this slice]:config-tags:" "--product-tag[A product tag to apply to the slice.]:product-tag:" "--product[The product name]:product:_product" "--application[The name of the application.]:application:" "--instance[The instance identifier to use.]:instance:" "--team[Team name that owns this Application {choices: CNC, Central, Consumer, Content, Core, DDS, Feed, Growth, Identity, Mobile, Money, MonitoringInfrastructure, NYC, NetOps, Other, Platform, SI, SNA, Security, SlideShare, Storage, SysOps, Tools, Traffic}]:team:" "--edit-wanted-apps[Prompt for additional applications that are wanted by the main app]:edit-wanted-apps:"
+;;
+delete )
+_arguments -S "--env[Rain server environment]:env:" ": : _message 'slice_id = SLICE_ID'"
+;;
+list )
+_arguments -S "--env[Rain server environment]:env:" "--columns[Columns to display (choices: application, instance, created_by, created_at, product_tag, config_tags, id, state, variant_key)]:columns:" "-c[Columns to display (choices: application, instance, created_by, created_at, product_tag, config_tags, id, state, variant_key)]:c:" "--product-tag[Product tag to filter.]:product-tag:" "--config-tags[Config tags to filter]:config-tags:" "--instance[An instance id to filter on]:instance:" "--application[An application name to filter on]:application:" "--product[A product name to filter on]:product:_product" "--team[A team to filter on]:team:"
+;;
+show )
+_arguments -S "--env[Rain server environment]:env:" "--json[Return JSON instead of tabulated for debugging purposes]:json:" ": : _message 'slice_id = SLICE_ID'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+settings )
+#  generate_group_completions for settings
+_arguments -S -C "*:: :->settings_subcommand" ": :((set\:'Set product/application settings ' list\:'List product/application settings ' delete\:'Delete product/application settings '))" 
+if [[ $state == settings_subcommand ]]
+then
+
+case ${line[1]} in
+set )
+_arguments -S "--product[Product to set settings for]:product:_product" "--application[Optionally scope settings to application]:application:" "--canary-count[Specify canary count as an integer or a percentage]:canary-count:" "--start-timeout[How long (in seconds) to wait for application to start before giving up.]:start-timeout:" "--stop-timeout[How long (in seconds) to wait for application to gracefully exit before giving up.]:stop-timeout:" "--run-timeout[How long (in seconds) to wait for job to complete before giving up.]:run-timeout:" "--force-kill-delay[Delay in seconds before killing (kill -9) an application when stopping]:force-kill-delay:" "--instance-concurrency[Instance level deployment concurrency]:instance-concurrency:" "--host-concurrency[Host level deployment concurrency]:host-concurrency:" "--success-threshold[Minimum per-instance host success threshold, which allows a failed deployment to be treated as successful when met]:success-threshold:"
+;;
+list )
+_arguments -S "--product[Product to list settings for]:product:_product" "--application[Optionally scope settings to application]:application:"
+;;
+delete )
+_arguments -S "--product[Product to delete settings for]:product:_product" "--application[Optionally scope settings to application]:application:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+whitelist )
+#  generate_group_completions for whitelist
+_arguments -S -C "*:: :->whitelist_subcommand" ": :((add\:'Add a product or network war to the Topology v3 whitelist' list\:'List products that are on the Topology v3 whitelist for the fabric' delete\:'Remove a product or network application from the Topology v3 whitelist'))" 
+if [[ $state == whitelist_subcommand ]]
+then
+
+case ${line[1]} in
+add )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--product[Product to add to the whitelist.]:product:_product" "--war[Network war to add to the whitelist.]:war:"
+;;
+list )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "*--product[Specific products to show whitelist status.]:product:_product" "*--war[Specific network wars to show whitelist status.]:war:"
+;;
+delete )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--product[Product to remove from the whitelist]:product:_product" "--war[Network war to remove from the whitelist.]:war:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+instance )
+#  generate_group_completions for instance
+_arguments -S -C "*:: :->instance_subcommand" ": :((delete-canary-target\:'Mark the application instance(s) as not canary targets' set-canary-target\:'Mark the application instance(s) as canary targets' create\:'Allocate application instance(s) for application slice' list\:'List the application instances for the application slice' delete\:'Release the application instance from a host'))" 
+if [[ $state == instance_subcommand ]]
+then
+
+case ${line[1]} in
+delete-canary-target )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--hosts[HOST1,HOST2]:hosts:" ": : _message 'application_slice_id = APPLICATION_SLICE_ID'"
+;;
+set-canary-target )
+_arguments -S "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--hosts[HOST1,HOST2]:hosts:" ": : _message 'application_slice_id = APPLICATION_SLICE_ID'"
+;;
+create )
+_arguments -S "--env[Rain server environment]:env:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--hosts[Specify which hosts to create instances on]:hosts:" "--count[Number of instances to allocate.]:count:" "--deploy[Deploy the application after adding it to the topology]:deploy:" ": : _message 'application_slice_id = APPLICATION_SLICE_ID'"
+;;
+list )
+_arguments -S "--env[Rain server environment]:env:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" ": : _message 'slice_id = SLICE_ID'"
+;;
+delete )
+_arguments -S "--env[Rain server environment]:env:" "--hosts[Instances to delete Use comma to separate multiple values.]:hosts:" "--all[Delete all instances in fabric]:all:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" ": : _message 'slice_id = SLICE_ID'" ": : _message 'hosts = [HOSTS]...'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+import )
+_arguments -S "--dry-run[Just print what would be converted.]:dry-run:" "--deploy[Also redeploy (default: False)]:deploy:" "--product[A product name to filter on]:product:_product" "--war[A war name to filter on]:war:" "--hosts[Hosts to scope to]:hosts:" "--required-info-tags[List of info tags that are allowed to be imported]:required-info-tags:" "--no-info-tags[Skip import of info tags]:no-info-tags:" "--team[Team name that owns this Application {choices: CNC, Central, Consumer, Content, Core, DDS, Feed, Growth, Identity, Mobile, Money, MonitoringInfrastructure, NYC, NetOps, Other, Platform, SI, SNA, Security, SlideShare, Storage, SysOps, Tools, Traffic}]:team:" "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:"
+;;
+check )
+_arguments -S "--fabrics[Comma-separated Fabric names]:fabrics:_fabrics" "-f[Comma-separated Fabric names]:f:_fabrics" "--fabric-group[The comma-separated FabricGroup names]:fabric-group:" "-fg[The comma-separated FabricGroup names]:fg:" "--use-v2[Assume v2 is correct (output instructions only to fix v3).]:use-v2:" "--use-v3[Assume v3 is correct (output instructions only to fix v2).]:use-v3:" "--todo-only[Show deployables where theres something left to-do only.]:todo-only:" "--kind[Select all candidates with the given kind (generic, jetty, tomcat).]:kind:" "--check-timeouts[Also check diffs on force-kill-delay and start/stop timeouts.]:check-timeouts:" "--auto-fix[Look for automatically fixable issues, use --auto-fix=report or --auto-fix=commit.]:auto-fix:" "--jetty9[Recommend jetty9 skeleton.]:jetty9:" "--no-color[Dont highlight output using colors.]:no-color:" ": : _message 'candidates = [CANDIDATES]...'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _topology-v3 topology-v3

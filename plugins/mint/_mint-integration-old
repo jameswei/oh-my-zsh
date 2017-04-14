@@ -1,0 +1,45 @@
+#compdef mint-integration-old
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((run\:'Run a named test suite from the config' help\:'Display help / usage information.' show\:'Show information about test suites' testrun\:'Start the services for a test' selenium\:'Run Selenium test suites TEST_SUITES: Name of one or more test suites to run, or all' test-only\:'Run just the test' coverage\:'Run a named test suite from the config and record code coverage' test\:'Run a named test suite from the config (alias for run)' setup-only\:'Start the services for a test' teardown-only\:'Stop the services for a test'))" "--set-entry-point-name[BOOLEAN]:set-entry-point-name:" "--version[Show the version and exit.]:version:" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:" "--pdb[Drop into debugger before doing anything else.]:pdb:" "-c[alternate test fwk config file]:c:" "--test-fwk-config[alternate test fwk config file]:test-fwk-config:" "--nostats[Do not send usage stats to product dashboard.]:nostats:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+run )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--include[Setup phase steps to include]:include:" "--exclude[Setup phase steps to skip]:exclude:" "--qei-profile[TEXT]:qei-profile:" "--fabric[{DEV|EI3|EI2|EI1|QEI3|QEI2|QEI1|CORP-EAT1|CORP-ESV4|corp-lva1|corp-lca1|lit-lca1-1|lit-lca1-2|ei-lca1|ei-ltx1|qei-lca1|qei-ltx1}]:fabric:_fabric" "--action[start or stop; default==start]:action:" "--build-from-source[Network specific: Build all relevant wars to be deployed from source]:build-from-source:" "--deploy-args[Network specific: A pass through to pass arguments directly to deploy commands.]:deploy-args:" "--build-args[Network specific: A pass through to pass arguments directly to builds.]:build-args:" "--services[Network specific: Execute tests for specified services]:services:" "--test-args[Network specific: A pass through to pass arguments directly to test commands.]:test-args:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+help )
+_arguments -S 
+;;
+show )
+_arguments -S "--include[Setup phase steps to include]:include:" "--exclude[Setup phase steps to skip]:exclude:"
+;;
+testrun )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--include[Setup phase steps to include]:include:" "--exclude[Setup phase steps to skip]:exclude:" "--action[start or stop; default==start]:action:" "--build-from-source[Network specific: Build all relevant wars to be deployed from source]:build-from-source:" "--deploy-args[Network specific: A pass through to pass arguments directly to deploy commands.]:deploy-args:" "--build-args[Network specific: A pass through to pass arguments directly to builds.]:build-args:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+selenium )
+_arguments -S "--target[Override target used]:target:" "--fwk-version[Override selenium-framework version used]:fwk-version:" "*-o[string of comma-delimited key value pairs]:o:" "*--override-config[string of comma-delimited key value pairs]:override-config:" "--always-untar[always untar selenium-fwk into local directory]:always-untar:" "--ruby-version[Override ruby version used]:ruby-version:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+test-only )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--qei-profile[TEXT]:qei-profile:" "--fabric[{DEV|EI3|EI2|EI1|QEI3|QEI2|QEI1|CORP-EAT1|CORP-ESV4|corp-lva1|corp-lca1|lit-lca1-1|lit-lca1-2|ei-lca1|ei-ltx1|qei-lca1|qei-ltx1}]:fabric:_fabric" "--services[Network specific: Execute tests for specified services]:services:" "--test-args[Network specific: A pass through to pass arguments directly to test commands.]:test-args:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+coverage )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--include[Setup phase steps to include]:include:" "--exclude[Setup phase steps to skip]:exclude:" "--qei-profile[TEXT]:qei-profile:" "--fabric[{DEV|EI3|EI2|EI1|QEI3|QEI2|QEI1|CORP-EAT1|CORP-ESV4|corp-lva1|corp-lca1|lit-lca1-1|lit-lca1-2|ei-lca1|ei-ltx1|qei-lca1|qei-ltx1}]:fabric:_fabric" "--build-from-source[Network specific: Build all relevant wars to be deployed from source]:build-from-source:" "--deploy-args[Network specific: A pass through to pass arguments directly to deploy commands.]:deploy-args:" "--build-args[Network specific: A pass through to pass arguments directly to builds.]:build-args:" "--services[Network specific: Execute tests for specified services]:services:" "--test-args[Network specific: A pass through to pass arguments directly to test commands.]:test-args:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+test )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--include[Setup phase steps to include]:include:" "--exclude[Setup phase steps to skip]:exclude:" "--qei-profile[TEXT]:qei-profile:" "--fabric[{DEV|EI3|EI2|EI1|QEI3|QEI2|QEI1|CORP-EAT1|CORP-ESV4|corp-lva1|corp-lca1|lit-lca1-1|lit-lca1-2|ei-lca1|ei-ltx1|qei-lca1|qei-ltx1}]:fabric:_fabric" "--build-from-source[Network specific: Build all relevant wars to be deployed from source]:build-from-source:" "--deploy-args[Network specific: A pass through to pass arguments directly to deploy commands.]:deploy-args:" "--build-args[Network specific: A pass through to pass arguments directly to builds.]:build-args:" "--services[Network specific: Execute tests for specified services]:services:" "--test-args[Network specific: A pass through to pass arguments directly to test commands.]:test-args:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+setup-only )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--include[Setup phase steps to include]:include:" "--exclude[Setup phase steps to skip]:exclude:" "--action[start or stop; default==start]:action:" "--build-from-source[Network specific: Build all relevant wars to be deployed from source]:build-from-source:" "--deploy-args[Network specific: A pass through to pass arguments directly to deploy commands.]:deploy-args:" "--build-args[Network specific: A pass through to pass arguments directly to builds.]:build-args:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+teardown-only )
+_arguments -S "--coverage[Record code coverage]:coverage:" "--parallel[BOOLEAN]:parallel:" "--is-testonly[BOOLEAN]:is-testonly:" "--is-testrun[BOOLEAN]:is-testrun:" "--dry-run[dont run any tests, just print what would happen]:dry-run:" "--dryrun[dont run any tests, just print what would happen]:dryrun:" "--action[start or stop; default==start]:action:" ": : _message 'test_suites = [TEST_SUITES]...'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _mint-integration-old mint-integration-old

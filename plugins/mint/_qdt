@@ -1,0 +1,62 @@
+#compdef qdt
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for clix
+_arguments -S -C "*:: :->clix_subcommand" ": :((application\:'Applications in QDT ' deployment\:'Manage developer deployments in QDT '))" "--target[The target environment {ei/prod}]:target:" "-t[The target environment {ei/prod}]:t:" "--log[Log file destination]:log:" "--debug[Enable debug logging]:debug:"
+  if [[ $state == clix_subcommand ]]
+  then
+  
+case ${line[1]} in
+application )
+#  generate_group_completions for application
+_arguments -S -C "*:: :->application_subcommand" ": :((request\:'Request access to application ' list\:'View enabled applications '))" 
+  if [[ $state == application_subcommand ]]
+  then
+  
+case ${line[1]} in
+request )
+_arguments -S "--application[Name of application]:application:" "-a[Name of application]:a:"
+;;
+list )
+_arguments -S "--application[Filter QDT developer deployments by applications]:application:" "-a[Filter QDT developer deployments by applications]:a:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+deployment )
+#  generate_group_completions for deployment
+_arguments -S -C "*:: :->deployment_subcommand" ": :((add\:'Add a new deployment instance ' enable\:'Enable a deployment instance ' list\:'View deployments ' update\:'Update an existing deployment instance ' disable\:'Disable a deployment instance '))" 
+  if [[ $state == deployment_subcommand ]]
+  then
+  
+case ${line[1]} in
+add )
+_arguments -S "--application[The name of the application deployed]:application:" "-a[The name of the application deployed]:a:" "--host[The hostname of the instance]:host:" "--port[The port of the deployment instance]:port:" "-p[The port of the deployment instance]:p:"
+;;
+enable )
+_arguments -S "--id[The deployment instance id to enable]:id:" "-i[The deployment instance id to enable]:i:"
+;;
+list )
+_arguments -S "--user[Filter QDT developer deployments by LDAP username]:user:" "-u[Filter QDT developer deployments by LDAP username]:u:" "--application[Filter QDT developer deployments by applications]:application:" "-a[Filter QDT developer deployments by applications]:a:" "--host[Filter QDT developer deployments by hostname]:host:"
+;;
+update )
+_arguments -S "--id[The deployment instance id to update]:id:" "-i[The deployment instance id to update]:i:" "--application[The name of the application deployed]:application:" "-a[The name of the application deployed]:a:" "--host[The hostname of the instance]:host:" "--port[The port of the deployment instance]:port:" "-p[The port of the deployment instance]:p:"
+;;
+disable )
+_arguments -S "--id[The deployment instance id to disable]:id:" "-i[The deployment instance id to disable]:i:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _qdt qdt

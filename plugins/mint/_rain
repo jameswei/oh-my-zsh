@@ -1,0 +1,93 @@
+#compdef rain
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((cslice\:'Manage colocated application slices.' slice\:'Manage Application Slices ' instance\:'Manage Application Instances '))" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+cslice )
+#  generate_group_completions for cslice
+_arguments -S -C "*:: :->cslice_subcommand" ": :((fork\:'Fork a colocated application slice' create\:'Create a colocated application slice.' show\:'Show details about a colocated slice.' list\:'List colocated application slices matching the specified criteria' delete\:'Delete a colocated application slice.'))" 
+if [[ $state == cslice_subcommand ]]
+then
+
+case ${line[1]} in
+fork )
+_arguments -S "--product-tag[A product tag to apply to the slice.]:product-tag:" "--no-config-tags[Dont set any config tags on the new slice.]:no-config-tags:" "--config-tags[Config tags to add to all instances of this slice]:config-tags:" "--no-info-tags[Dont set any info tags on the new slice.]:no-info-tags:" "--info-tags[Info tags to add to all instances of this slice]:info-tags:" "--no-variant-key[Set no variant key on the new slice]:no-variant-key:" "--variant-key[Variant on which the application needs to be build]:variant-key:" "--cores[Number of virtual CPUs, like 2.]:cores:" "--memory[Amount of memory in GB, like 4.]:memory:" "--env[Rain server environment]:env:" ": : _message 'slice_id = SLICE_ID'"
+;;
+create )
+_arguments -S "--env[Rain server environment]:env:" "--variant-key[Variant for which the application needs to be build]:variant-key:" "--info-tags[An info tag to add to all instances of this slice]:info-tags:" "--config-tags[A config tag to add to all instances of this slice]:config-tags:" "--product-tag[A product tag to apply to the slice.]:product-tag:" "--product[The product name]:product:_product" "--application[The name of the application.]:application:" "--instance[The instance identifier to use.]:instance:" "--cores[Number of virtual CPUs.]:cores:" "--memory[Amount of memory in GB.]:memory:"
+;;
+show )
+_arguments -S "--env[Rain server environment]:env:" "--json[Return JSON instead of tabulated for debugging purposes]:json:" ": : _message 'slice_id = SLICE_ID'"
+;;
+list )
+_arguments -S "--env[Rain server environment]:env:" "--columns[Columns to display (choices: application, instance, created_by, created_at, product_tag, config_tags, id, state, variant_key)]:columns:" "-c[Columns to display (choices: application, instance, created_by, created_at, product_tag, config_tags, id, state, variant_key)]:c:" "--product-tag[Product tag to filter.]:product-tag:" "--config-tags[Config tags to filter]:config-tags:" "--instance[An instance id to filter on]:instance:" "--application[An application name to filter on]:application:" "--product[A product name to filter on]:product:_product"
+;;
+delete )
+_arguments -S "--env[Rain server environment]:env:" ": : _message 'slice_id = SLICE_ID'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+slice )
+#  generate_group_completions for slice
+_arguments -S -C "*:: :->slice_subcommand" ": :((fork\:'Fork an existing slice to create a new slice with updated specs' create\:'Create an application slice and set it up with a basic host spec.' delete\:'Delete an application slice' list\:'List application slices matching the specified criteria' show\:'Show details about a slice.'))" 
+if [[ $state == slice_subcommand ]]
+then
+
+case ${line[1]} in
+fork )
+_arguments -S "--product-tag[A product tag to apply to the slice.]:product-tag:" "--no-config-tags[Dont set any config tags on the new slice.]:no-config-tags:" "--config-tags[Config tags to add to all instances of this slice]:config-tags:" "--no-info-tags[Dont set any info tags on the new slice.]:no-info-tags:" "--info-tags[Info tags to add to all instances of this slice]:info-tags:" "--no-colocated-slices[Set no colocated slice dependencies on the new slice.]:no-colocated-slices:" "--colocated-slices[A list of colocated slices this slice depends on]:colocated-slices:" "--no-variant-key[Set no variant key on the new slice]:no-variant-key:" "--variant-key[Variant on which the application needs to be build]:variant-key:" "--cores[Number of virtual CPUs, like 2.]:cores:" "--memory[Amount of memory in GB, like 4.]:memory:" "--no-pool[Removes the pool from the new slice]:no-pool:" "--pool[Name of the private pool to create the slice in]:pool:" "--team[Team name that owns this Application {choices: CNC, Central, Consumer, Content, Core, DDS, Feed, Growth, Identity, Mobile, Money, MonitoringInfrastructure, NYC, NetOps, Other, Platform, SI, SNA, Security, SlideShare, Storage, SysOps, Tools, Traffic}]:team:" "--kernel-profile[The Linux kernel profile to use on target machines]:kernel-profile:" "--software-profile[Name of the software profile]:software-profile:" "--isolation[What level of isolation to use when placing this ApplicationSlice]:isolation:" "--edit-wanted-apps[Prompt for additional applications that are wanted by the main app]:edit-wanted-apps:" "--from-topology-v3[Fork a slice that was created with "topology-v3" (aka a static slice)]:from-topology-v3:" "--env[Rain server environment]:env:" ": : _message 'slice_id = SLICE_ID'"
+;;
+create )
+_arguments -S "--env[Rain server environment]:env:" "--variant-key[Variant for which the application needs to be build]:variant-key:" "--info-tags[An info tag to add to all instances of this slice]:info-tags:" "--config-tags[A config tag to add to all instances of this slice]:config-tags:" "--product-tag[A product tag to apply to the slice.]:product-tag:" "--product[The product name]:product:_product" "--application[The name of the application.]:application:" "--instance[The instance identifier to use.]:instance:" "--edit-wanted-apps[Prompt for additional applications that are wanted by the main app]:edit-wanted-apps:" "--cores[Number of virtual CPUs, like 2]:cores:" "--memory[Amount of memory in GB, like 4]:memory:" "--pool[Name of the private pool to create the slice in]:pool:" "--team[Team name that owns this Application {choices: CNC, Central, Consumer, Content, Core, DDS, Feed, Growth, Identity, Mobile, Money, MonitoringInfrastructure, NYC, NetOps, Other, Platform, SI, SNA, Security, SlideShare, Storage, SysOps, Tools, Traffic}]:team:" "--kernel-profile[The Linux kernel profile to use on target machines]:kernel-profile:" "--software-profile[Name of the software profile]:software-profile:" "--isolation[What level of isolation to use when placing this ApplicationSlice]:isolation:" "--colocated-slices[A list of colocated slices this slice depends on]:colocated-slices:"
+;;
+delete )
+_arguments -S "--env[Rain server environment]:env:" ": : _message 'slice_id = SLICE_ID'"
+;;
+list )
+_arguments -S "--env[Rain server environment]:env:" "--columns[Columns to display (choices: application, instance, created_by, created_at, product_tag, config_tags, id, state, variant_key)]:columns:" "-c[Columns to display (choices: application, instance, created_by, created_at, product_tag, config_tags, id, state, variant_key)]:c:" "--product-tag[Product tag to filter.]:product-tag:" "--config-tags[Config tags to filter]:config-tags:" "--instance[An instance id to filter on]:instance:" "--application[An application name to filter on]:application:" "--product[A product name to filter on]:product:_product" "--team[A team to filter on]:team:"
+;;
+show )
+_arguments -S "--env[Rain server environment]:env:" "--json[Return JSON instead of tabulated for debugging purposes]:json:" ": : _message 'slice_id = SLICE_ID'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+instance )
+#  generate_group_completions for instance
+_arguments -S -C "*:: :->instance_subcommand" ": :((create\:'Allocate application instance(s) for application slice' list\:'List the application instances for the application slice' delete\:'Release the application instance from a host'))" 
+if [[ $state == instance_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "--env[Rain server environment]:env:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" "--hosts[Try to force the instance on the host if possible]:hosts:" "--count[Number of instances to allocate.]:count:" "--no-deploy[Allocate the hosts but do not deploy.]:no-deploy:" ": : _message 'application_slice_id = APPLICATION_SLICE_ID'"
+;;
+list )
+_arguments -S "--env[Rain server environment]:env:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" ": : _message 'slice_id = SLICE_ID'"
+;;
+delete )
+_arguments -S "--env[Rain server environment]:env:" "--hosts[Instances to delete Use comma to separate multiple values.]:hosts:" "--all[Delete all instances in fabric]:all:" "--fabric[The name of the Fabric]:fabric:_fabric" "-f[The name of the Fabric]:f:_fabric" ": : _message 'slice_id = SLICE_ID'" ": : _message 'hosts = [HOSTS]...'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _rain rain

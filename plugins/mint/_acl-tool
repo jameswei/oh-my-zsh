@@ -1,0 +1,27 @@
+#compdef acl-tool
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((edit\:' This function requires four arguments: <namespace> - The rule namespace' create\:' This function requires four arguments: <namespace> - The rule namespace' delete\:' This function requires four arguments: <namespace> - The rule namespace' view\:' This function requires four arguments: <namespace> - The rule namespace'))" "-k[Clear cached grestin certificates.]:k:" "--clear-certs[Clear cached grestin certificates.]:clear-certs:" "--version[Show the version and exit.]:version:" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+  if [[ $state == main_subcommand ]]
+  then
+  
+case ${line[1]} in
+edit )
+_arguments -S "--no-confirm[Dont prompt for confirmation]:no-confirm:" "-y[Dont prompt for confirmation]:y:" "-d[Path to certificates]:d:" "--cert-dir[Path to certificates]:cert-dir:" "-g[Group for grestin certificate issuance]:g:" "-u[Username for grestin authentication]:u:" "-f[Input file]:f:" "--from-file[Input file]:from-file:" "-t[Input file type]:t:" "--type[Input file type]:type:" ": : _message 'namespace = <namespace>'" ": : _message 'resource_name = <resource>'" ": : _message 'scope_type = <scope_type>'" ": : _message 'scope_value = <scope_value>'"
+;;
+create )
+_arguments -S "--no-confirm[Dont prompt for confirmation]:no-confirm:" "-y[Dont prompt for confirmation]:y:" "-d[Path to certificates]:d:" "--cert-dir[Path to certificates]:cert-dir:" "-g[Group for grestin certificate issuance]:g:" "-u[Username for grestin authentication]:u:" "-f[Input file]:f:" "--from-file[Input file]:from-file:" "-t[Input file type]:t:" "--type[Input file type]:type:" ": : _message 'namespace = <namespace>'" ": : _message 'resource_name = <resource>'" ": : _message 'scope_type = <scope_type>'" ": : _message 'scope_value = <scope_value>'"
+;;
+delete )
+_arguments -S "--no-confirm[Dont prompt for confirmation]:no-confirm:" "-y[Dont prompt for confirmation]:y:" "--output-type[How to display the target rule.]:output-type:" "-o[How to display the target rule.]:o:" "-d[Path to certificates]:d:" "--cert-dir[Path to certificates]:cert-dir:" "-g[Group for grestin certificate issuance]:g:" "-u[Username for grestin authentication]:u:" ": : _message 'namespace = <namespace>'" ": : _message 'resource_name = <resource>'" ": : _message 'scope_type = <scope_type>'" ": : _message 'scope_value = <scope_value>'"
+;;
+view )
+_arguments -S "-t[Skip the editor, and dump the rule to console in the specified format.]:t:" "--format[Skip the editor, and dump the rule to console in the specified format.]:format:" "-a[How many revisions ago? (0-15, dynamic prompt if outside this range)]:a:" "--history[How many revisions ago? (0-15, dynamic prompt if outside this range)]:history:" ": : _message 'namespace = <namespace>'" ": : _message 'resource_name = <resource>'" ": : _message 'scope_type = <scope_type>'" ": : _message 'scope_value = <scope_value>'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _acl-tool acl-tool

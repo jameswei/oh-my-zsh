@@ -1,0 +1,42 @@
+#compdef dg
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for cli
+_arguments -S -C "*:: :->cli_subcommand" ": :((pull\:'Pull changes from remote.' run\:'Push local changes and then run a command remotely' watch\:'Watch for local changes and push as they happen.' mosh\:'Connect to remote with mosh' init\:'Configures doppelganger before first use.' ssh\:'Connect to remote' mirror\:'Run command on both sides' push\:'Push from local directory' local\:'Run a command locally, and then push to the remote afterwards'))" "--dryrun[Try not to actually do anything.]:dryrun:"
+if [[ $state == cli_subcommand ]]
+then
+
+case ${line[1]} in
+pull )
+_arguments -S 
+;;
+run )
+_arguments -S "--pty[Use a pseudo-terminal]:pty:" ": : _message 'command = [COMMAND]...'"
+;;
+watch )
+_arguments -S "--quiet[Mute output]:quiet:"
+;;
+mosh )
+_arguments -S "--chdir[Change to corresponding remote directory on shell start]:chdir:"
+;;
+init )
+_arguments -S "--remote-host[Remote host]:remote-host:" "--remote-path[Remote path]:remote-path:" "--key[Private key to use]:key:" "--force[Overwrite .doppelganger file without prompt.]:force:"
+;;
+ssh )
+_arguments -S "--use-mosh[Connect with mosh]:use-mosh:" "--chdir[Change to corresponding remote directory on shell start]:chdir:"
+;;
+mirror )
+_arguments -S ": : _message 'command = [COMMAND]...'"
+;;
+push )
+_arguments -S 
+;;
+local )
+_arguments -S ": : _message 'command = [COMMAND]...'"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _dg dg

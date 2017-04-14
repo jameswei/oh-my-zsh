@@ -1,0 +1,5 @@
+#compdef lid-info
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+_arguments -S "--json[Emit output as JSON]:json:" "--verbose[Emit a prettier, multi-line output.]:verbose:" ": : _message 'appname = [APPNAME]...'"
+compdef _lid-info lid-info

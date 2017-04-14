@@ -1,0 +1,27 @@
+#compdef sos
+typeset -A opt_args
+local context state line ret curcontext="$curcontext"
+#  generate_group_completions for main
+_arguments -S -C "*:: :->main_subcommand" ": :((create\:'Create a new ownership record' delete\:'Delete an ownership record by id' find\:'Search for ownership records by specifying criteria, using either positional parameter NAME only or options only' get\:'Get an ownership by id'))" "--version[Show the version and exit.]:version:" "--debug[Enable debug logging]:debug:" "--log[Log file destination]:log:"
+if [[ $state == main_subcommand ]]
+then
+
+case ${line[1]} in
+create )
+_arguments -S "-u[The LDAP name of the owner (user or group) to filter by]:u:" "--owned-by[The LDAP name of the owner (user or group) to filter by]:owned-by:" "-n[The name of the ownable]:n:" "--ownable-name[The name of the ownable]:ownable-name:" "-t[The ownable type]:t:" "--ownable-type[The ownable type]:ownable-type:" "-o[The ownership type]:o:" "--ownership-type[The ownership type]:ownership-type:" "--owner-type[The owner type.]:owner-type:"
+;;
+delete )
+_arguments -S "-i[The UUID of the ownership record to delete]:i:" "--id[The UUID of the ownership record to delete]:id:"
+;;
+find )
+_arguments -S "-u[The LDAP name of the owner (user or group) to filter by]:u:" "--owned-by[The LDAP name of the owner (user or group) to filter by]:owned-by:" "-n[The name of the ownable to filter by]:n:" "--ownable-name[The name of the ownable to filter by]:ownable-name:" "-t[The ownable type to filter by]:t:" "--ownable-type[The ownable type to filter by]:ownable-type:" "-o[The ownership type to filter by]:o:" "--ownership-type[The ownership type to filter by]:ownership-type:" "-v[Displays UUIDs of the ownership records]:v:" "--verbose[Displays UUIDs of the ownership records]:verbose:" ": : _message 'name = [NAME]'"
+;;
+get )
+_arguments -S "-i[The UUID of the ownership to lookup (if only querying for a single ownership)]:i:" "--id[The UUID of the ownership to lookup (if only querying for a single ownership)]:id:" "--ownership-id[The UUID of the ownership to lookup (if only querying for a single ownership)]:ownership-id:" "-v[Displays UUIDs of the ownership records]:v:" "--verbose[Displays UUIDs of the ownership records]:verbose:"
+;;
+* )
+_message "No known completions"
+;;
+esac
+fi
+compdef _sos sos

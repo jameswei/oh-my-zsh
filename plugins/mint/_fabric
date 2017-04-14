@@ -1,0 +1,5 @@
+#autoload
+
+local matches
+matches=( $(_cached_tmctf fabric "${PREFIX}") )
+compadd -a matches
